@@ -1,0 +1,25 @@
+---
+- hosts: nishant-fedora-vm@192.168.0.102
+  become: yes
+  become_user: root
+  tasks:
+    - shell: uname -a; journalctl -n 10 > file.txt
+      register: shell_result
+
+    - debug:
+        var: shell_result.stdout_lines
+    
+    - name: Install git
+      dnf:
+        name: git
+        state: latest
+    
+    - name: Install nano
+      dnf:
+        name: nano
+        state: latest
+
+    - name: Install htop
+      dnf:
+        name: htop
+        state: latest
