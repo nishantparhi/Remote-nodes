@@ -3,17 +3,18 @@
   become: yes
   become_user: root
   tasks:
-    - shell: uname -a; journalctl -n 10 > file.txt
-      register: shell_result
+    - name: Execute remote script
+      shell: /home/nishant-fedora-vm/nishant.sh
+      register: result
 
     - debug:
-        var: shell_result.stdout_lines
-    
+        var: result
+
     - name: Install git
       dnf:
         name: git
         state: latest
-    
+
     - name: Install nano
       dnf:
         name: nano
